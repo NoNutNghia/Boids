@@ -1,3 +1,4 @@
+// Tran Duc Minh + Le Duc Trong
 // Size of canvas. These get updated to fill the whole browser.
 let width = 150;
 let height = 150;
@@ -11,8 +12,11 @@ let dataDemo = {
     visualRange: 75,
     boidsColor: "#558cf4",
     backgroundColor: "#ffffff",
-    speedBoid: 10,
+    colorVector: "#558cf466",
+    speedBoid: 15,
 };
+
+let colorVector = "#558cf466";
 
 let drawTrail = false;
 
@@ -32,6 +36,7 @@ let resetButton = document.querySelector("#reset");
 let movingFasterButton = document.querySelector("#faster");
 let drawTrailButton = document.querySelector("#showVector");
 let hideDrawTrailButton = document.querySelector("#hideVector");
+let colorOfVectorInput = document.querySelector("#colorOfVector");
 
 function numBoidChange() {
     dataDemo.numBoids = boidsInput.value;
@@ -65,6 +70,10 @@ function hideVector() {
     hideDrawTrailButton.style.display = "none";
 }
 
+function changeColorVector() {
+    dataDemo.colorVector = colorOfVectorInput.value;
+}
+
 var boids = [];
 
 function initBoids() {
@@ -79,6 +88,7 @@ function initBoids() {
   }
 }
 
+// Nguyen Ngoc Nghia
 function distance(boid1, boid2) {
   return Math.sqrt(
     (boid1.x - boid2.x) * (boid1.x - boid2.x) +
@@ -224,7 +234,7 @@ function drawBoid(ctx, boid) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
   if (drawTrail) {
-    ctx.strokeStyle = "#558cf466";
+    ctx.strokeStyle = colorVector;
     ctx.beginPath();
     ctx.moveTo(boid.history[0][0], boid.history[0][1]);
     for (const point of boid.history) {
@@ -278,6 +288,8 @@ function demoBoids() {
     window.requestAnimationFrame(animationLoop);
 }
 
+// Tran Duc Minh + Le Duc Trong
+
 function showSetting() {
     formBoids.style.display = "flex";
     hideSettingButton.style.display = "block";
@@ -311,6 +323,7 @@ function submitDemoBoids() {
     visualRange = dataDemo.visualRange;
     boidColor = dataDemo.boidsColor;
     speedBoidLimit = dataDemo.speedBoid;
+    colorVector = dataDemo.colorVector;
     document.querySelector("body").style.background = dataDemo.backgroundColor;
     boids = [];
     initBoids();
