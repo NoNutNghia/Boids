@@ -14,8 +14,11 @@ let dataDemo = {
     speedBoid: 10,
 };
 
+let drawTrail = false;
+
 let boidColor = "#558cf4";
 
+// Get data from form boids input
 let boidsInput = document.getElementById("numberOfBoids");
 let visualRangeInput = document.getElementById("visualRange");
 let colorBackGround = document.getElementById("colorBackground");
@@ -27,6 +30,8 @@ let submitDemo = document.querySelector("#submitDemo");
 let speedBoidInput = document.querySelector("#speedBoid");
 let resetButton = document.querySelector("#reset");
 let movingFasterButton = document.querySelector("#faster");
+let drawTrailButton = document.querySelector("#showVector");
+let hideDrawTrailButton = document.querySelector("#hideVector");
 
 function numBoidChange() {
     dataDemo.numBoids = boidsInput.value;
@@ -46,6 +51,18 @@ function visualRangeChange() {
 
 function changeSpeedBoid() {
     dataDemo.speedBoid = speedBoidInput.value;
+}
+
+function showVector() {
+    drawTrail = !drawTrail;
+    drawTrailButton.style.display = "none";
+    hideDrawTrailButton.style.display = "block";
+}
+
+function hideVector() {
+    drawTrail = !drawTrail;
+    drawTrailButton.style.display = "block";
+    hideDrawTrailButton.style.display = "none";
 }
 
 var boids = [];
@@ -192,8 +209,6 @@ function limitSpeed(boid) {
   }
 }
 
-const DRAW_TRAIL = false;
-
 function drawBoid(ctx, boid) {
   const angle = Math.atan2(boid.dy, boid.dx);
   ctx.translate(boid.x, boid.y);
@@ -208,7 +223,7 @@ function drawBoid(ctx, boid) {
   ctx.fill();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-  if (DRAW_TRAIL) {
+  if (drawTrail) {
     ctx.strokeStyle = "#558cf466";
     ctx.beginPath();
     ctx.moveTo(boid.history[0][0], boid.history[0][1]);
@@ -270,6 +285,7 @@ function showSetting() {
     submitDemo.style.display = "block";
     resetButton.style.display = "block";
     movingFasterButton.style.display = "block";
+    drawTrailButton.style.button = "block";
 }
 
 function hideSetting() {
@@ -279,6 +295,7 @@ function hideSetting() {
     submitDemo.style.display = "none";
     resetButton.style.display = "none";
     movingFasterButton.style.display = "none";
+    drawTrailButton.style.button = "none";
 }
 
 function resetDemo() {
