@@ -2,8 +2,51 @@
 let width = 150;
 let height = 150;
 
-const numBoids = 100;
-const visualRange = 75;
+let numBoids = 100;
+let visualRange = 75;
+let speedBoidLimit = 15;
+
+let dataDemo = {
+    numBoids: 100,
+    visualRange: 75,
+    boidsColor: "#558cf4",
+    backgroundColor: "#ffffff",
+    speedBoid: 10,
+};
+
+let boidColor = "#558cf4";
+
+let boidsInput = document.getElementById("numberOfBoids");
+let visualRangeInput = document.getElementById("visualRange");
+let colorBackGround = document.getElementById("colorBackground");
+let colorBoids = document.getElementById("colorOfBoid");
+let formBoids = document.querySelector(".form_boid");
+let showSettingButton = document.querySelector("#showSetting");
+let hideSettingButton = document.querySelector("#hideSetting");
+let submitDemo = document.querySelector("#submitDemo");
+let speedBoidInput = document.querySelector("#speedBoid");
+let resetButton = document.querySelector("#reset");
+let movingFasterButton = document.querySelector("#faster");
+
+function numBoidChange() {
+    dataDemo.numBoids = boidsInput.value;
+}
+
+function changeColorBackground() {
+    dataDemo.backgroundColor = colorBackGround.value;
+}
+
+function changeColorBoid() {
+    dataDemo.boidsColor = colorBoids.value;
+}
+
+function visualRangeChange() {
+    dataDemo.visualRange = visualRangeInput.value;
+}
+
+function changeSpeedBoid() {
+    dataDemo.speedBoid = speedBoidInput.value;
+}
 
 var boids = [];
 
@@ -140,7 +183,7 @@ function matchVelocity(boid) {
 // Speed will naturally vary in flocking behavior, but real animals can't go
 // arbitrarily fast.
 function limitSpeed(boid) {
-  const speedLimit = 15;
+  let speedLimit = speedBoidLimit;
 
   const speed = Math.sqrt(boid.dx * boid.dx + boid.dy * boid.dy);
   if (speed > speedLimit) {
@@ -156,7 +199,7 @@ function drawBoid(ctx, boid) {
   ctx.translate(boid.x, boid.y);
   ctx.rotate(angle);
   ctx.translate(-boid.x, -boid.y);
-  ctx.fillStyle = "#558cf4";
+  ctx.fillStyle = boidColor;
   ctx.beginPath();
   ctx.moveTo(boid.x, boid.y);
   ctx.lineTo(boid.x - 15, boid.y + 5);
@@ -205,14 +248,53 @@ function animationLoop() {
   window.requestAnimationFrame(animationLoop);
 }
 
-window.onload = () => {
-  // Make sure the canvas always fills the whole window
-  window.addEventListener("resize", sizeCanvas, false);
-  sizeCanvas();
+demoBoids();
 
-  // Randomly distribute the boids to start
-  initBoids();
+function demoBoids() {
 
-  // Schedule the main animation loop
-  window.requestAnimationFrame(animationLoop);
-};
+    // Make sure the canvas always fills the whole window
+    window.addEventListener("resize", sizeCanvas, false);
+    sizeCanvas();
+
+    // Randomly distribute the boids to start
+    initBoids();
+
+    // Schedule the main animation loop
+    window.requestAnimationFrame(animationLoop);
+}
+
+function showSetting() {
+    formBoids.style.display = "flex";
+    hideSettingButton.style.display = "block";
+    showSettingButton.style.display = "none";
+    submitDemo.style.display = "block";
+    resetButton.style.display = "block";
+    movingFasterButton.style.display = "block";
+}
+
+function hideSetting() {
+    formBoids.style.display = "none";
+    hideSettingButton.style.display = "none";
+    showSettingButton.style.display = "block";
+    submitDemo.style.display = "none";
+    resetButton.style.display = "none";
+    movingFasterButton.style.display = "none";
+}
+
+function resetDemo() {
+    location.reload();
+}
+
+function movingFaster() {
+    window.requestAnimationFrame(animationLoop);
+}
+
+function submitDemoBoids() {
+    numBoids = dataDemo.numBoids;
+    visualRange = dataDemo.visualRange;
+    boidColor = dataDemo.boidsColor;
+    speedBoidLimit = dataDemo.speedBoid;
+    document.querySelector("body").style.background = dataDemo.backgroundColor;
+    boids = [];
+    initBoids();
+}

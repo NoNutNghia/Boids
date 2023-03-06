@@ -3,16 +3,86 @@
   <head>
     <meta charset="utf-8"/>
     <title>Boids</title>
-    <script src="./boids.js"></script>
     <style type="text/css">
       body {
         margin: 0;
-        background: #282c34;
         overflow: hidden;
       }
     </style>
+      <link rel="stylesheet" href="boids.css">
   </head>
   <body>
-    <canvas id="boids" width="150" height="150"></canvas>
+  <div id="demoBoid">
+      <div class="form_boid">
+          <h1>
+              <span>
+                  Boid demo
+              </span>
+          </h1>
+          <div class="input_element">
+              <label for="numberOfBoids">
+                  Number of Boids
+              </label>
+              <input type="number" id="numberOfBoids" class="input_form" value="100" onchange="numBoidChange()">
+          </div>
+          <div class="input_element">
+              <label for="visualRange">
+                  Visual Range
+              </label>
+              <input type="number" id="visualRange" value="75" class="input_form" onchange="visualRangeChange()">
+          </div>
+          <div class="input_element">
+              <label for="speedBoid">
+                  Speed Boid
+              </label>
+              <input type="number" id="speedBoid" value="15" class="input_form" onchange="changeSpeedBoid()">
+          </div>
+          <div class="input_element">
+              <label for="colorBackground">
+                  Color Background
+              </label>
+              <input type="color" id="colorBackground" value="#ffffff" onchange="changeColorBackground()">
+          </div>
+          <div class="input_element">
+              <label for="colorOfBoid">
+                  Color of Boid
+              </label>
+              <input type="color" id="colorOfBoid" value="#558cf4" onchange="changeColorBoid()">
+          </div>
+
+      </div>
+      <div class="action_button">
+          <button onclick="showSetting()" class="action_button" id="showSetting">
+              <span>
+                  Show setting
+              </span>
+          </button>
+          <button onclick="submitDemoBoids()" id="submitDemo">
+              <span>
+                  Submit Demo
+              </span>
+          </button>
+          <button onclick="resetDemo()" id="reset">
+              <span>
+                  Reset
+              </span>
+          </button>
+          <button onclick="movingFaster()" id="faster">
+              <span>
+                  Move Faster
+              </span>
+          </button>
+          <button onclick="hideSetting()" id="hideSetting">
+              <span>
+                  Hide setting
+              </span>
+          </button>
+
+      </div>
+
+  </div>
+
+  <canvas id="boids" width="150" height="150"></canvas>
   </body>
+  <script src="./boids.js"></script>
 </html>
